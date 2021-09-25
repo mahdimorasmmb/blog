@@ -11,7 +11,12 @@ export default function BlogList() {
       {data &&
         data.posts.map(({ id, cover, description, title }) => (
           <Col md={12} key={id}>
-            <Blog cover={cover} description={description} title={title} />
+            <Blog
+              id={id}
+              cover={cover}
+              description={description}
+              title={title}
+            />
           </Col>
         ))}
     </Row>

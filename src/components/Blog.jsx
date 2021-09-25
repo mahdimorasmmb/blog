@@ -1,8 +1,10 @@
-import { Card } from "antd";
+import { Button, Card, Col, Row } from "antd";
 import Meta from "antd/lib/card/Meta";
-import React from "react";
+import React, { useContext } from "react";
+import { DataContext } from "../context/DataContextProvider";
 
-export default function Blog({ cover, description, title }) {
+export default function Blog({ id, cover, description, title }) {
+  const { handelPost } = useContext(DataContext);
   return (
     <Card
       style={{ height: "100%" }}
@@ -15,7 +17,21 @@ export default function Blog({ cover, description, title }) {
         />
       }
     >
-      <Meta title={title} description={description} />
+      <Row gutter={[15, 15]}>
+        <Col>
+          <Meta title={title} description={description} />
+        </Col>
+        <Col>
+          <Button
+            onClick={() => {
+              handelPost(id);
+            }}
+            type="primary"
+          >
+            ادامه مطلب
+          </Button>
+        </Col>
+      </Row>
     </Card>
   );
 }
