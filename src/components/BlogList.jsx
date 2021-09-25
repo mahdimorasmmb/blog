@@ -1,30 +1,19 @@
-import { Card, Col, Row } from "antd";
-import Meta from "antd/lib/card/Meta";
+import { Col, Row } from "antd";
 import React, { useContext } from "react";
 import { DataContext } from "../context/DataContextProvider";
+import Blog from "./Blog";
 
 export default function BlogList() {
   const { data } = useContext(DataContext);
 
   return (
     <Row gutter={[16, 16]}>
-      {data.posts.map((item) => (
-        <Col md={12} key={item.id}>
-          <Card
-            style={{ height: "100%" }}
-            hoverable
-            cover={
-              <img
-                style={{ height: "100%" }}
-                alt="example"
-                src={`https://media.bourseon.com/${item.cover}`}
-              />
-            }
-          >
-            <Meta title={item.title} description={item.description} />
-          </Card>
-        </Col>
-      ))}
+      {data &&
+        data.posts.map(({ id, cover, description, title }) => (
+          <Col md={12} key={id}>
+            <Blog cover={cover} description={description} title={title} />
+          </Col>
+        ))}
     </Row>
   );
 }

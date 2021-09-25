@@ -4,12 +4,15 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import "antd/dist/antd.css";
 import DataContextProvider from "./context/DataContextProvider";
+import PageContextProvider from "./context/PageContextProvider";
 
 ReactDOM.render(
   <React.StrictMode>
-    <DataContextProvider>
-      <App />
-    </DataContextProvider>
+    <PageContextProvider>
+      <DataContextProvider>
+        <App />
+      </DataContextProvider>
+    </PageContextProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

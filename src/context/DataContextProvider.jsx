@@ -1,21 +1,20 @@
-import React, { createContext, useEffect, useReducer, useState } from "react";
-import dataReducer from "../reducers/dataReducer";
+import React, { createContext, useContext, useEffect, useState } from "react";
+
+import { PageContext } from "./PageContextProvider";
 
 export const DataContext = createContext();
 
 export default function DataContextProvider({ children }) {
-  const [data, dispatch] = useReducer(dataReducer, {});
+  const [data, dispatch] = useState("");
+  const { page } = useContext(PageContext);
 
   useEffect(() => {
-    fetch("https://api.bourseon.com/posts/?page=2")
-      .then((res) => res.json())
-      .then((da) =>
-        dispatch({
-          type: "fetch",
-          payload: da,
-        })
-      );
-  }, []);
+    (async () => {
+      const res = await fetch(`https://api.bourseon.com/posts/?page=${page}`);
+      const da = await res.json();
+      dispatch(da);
+    })();
+  }, [page]);
   return (
     <DataContext.Provider value={{ data }}>{children}</DataContext.Provider>
   );

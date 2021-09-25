@@ -1,35 +1,47 @@
-import { useState } from "react";
+import { useContext } from "react";
 
-import { Layout, Menu, Breadcrumb, Button } from "antd";
+import { Col, Layout, Pagination, Row } from "antd";
 import "./App.css";
 import BlogList from "./components/BlogList";
+import { PageContext } from "./context/PageContextProvider";
+import { DataContext } from "./context/DataContextProvider";
 
 const { Header, Content, Footer } = Layout;
 function App() {
+  const { page, setPage } = useContext(PageContext);
+  const { data } = useContext(DataContext);
   return (
     <Layout>
       <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
-        <div className="logo" />
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["2"]}>
-          <Menu.Item key="1">nav 1</Menu.Item>
-          <Menu.Item key="2">nav 2</Menu.Item>
-          <Menu.Item key="3">nav 3</Menu.Item>
-        </Menu>
+        <h1 style={{ textAlign: "center", color: "white" }}>My Blog</h1>
       </Header>
       <Content
         className="site-layout"
         style={{ padding: "0 50px", marginTop: 64 }}
       >
-        <Breadcrumb style={{ margin: "16px 0" }}>
-          <Breadcrumb.Item>Home</Breadcrumb.Item>
-          <Breadcrumb.Item>List</Breadcrumb.Item>
-          <Breadcrumb.Item>App</Breadcrumb.Item>
-        </Breadcrumb>
         <div
           className="site-layout-background"
           style={{ padding: 24, minHeight: 380 }}
         >
-          <BlogList />
+          <Row>
+            <Col>
+              {" "}
+              <BlogList />
+            </Col>
+          </Row>
+          <Row style={{ padding: "10px 5px" }}>
+            <Col span={7}></Col>
+            <Col span={10}>
+              <Pagination
+                defaultCurrent={page}
+                total={data.pagination.totalPage}
+                onChange={(page) => {
+                  setPage(page);
+                }}
+              />
+            </Col>
+            <Col span={7}></Col>
+          </Row>
         </div>
       </Content>
       <Footer style={{ textAlign: "center" }}>
