@@ -1,11 +1,10 @@
 import { Card, Col, Row } from "antd";
 import Meta from "antd/lib/card/Meta";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { DataContext } from "../context/DataContextProvider";
-import dataReducer from "../reducers/dataReducer";
 
 export default function BlogList() {
-  const { data, dispatch } = useContext(DataContext);
+  const { data } = useContext(DataContext);
 
   return (
     <Row gutter={[16, 16]}>
