@@ -1,16 +1,12 @@
 import { Card, Col, Row } from "antd";
 import Meta from "antd/lib/card/Meta";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
+import { DataContext } from "../context/DataContextProvider";
+import dataReducer from "../reducers/dataReducer";
 
 export default function BlogList() {
-  const [data, setData] = useState();
-  useEffect(() => {
-    fetch("https://api.bourseon.com/posts")
-      .then((r) => r.json())
-      .then((res) => {
-        setData(res);
-      });
-  }, []);
+  const { data, dispatch } = useContext(DataContext);
+
   return (
     <Row gutter={[16, 16]}>
       {data.posts.map((item) => (
