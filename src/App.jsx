@@ -29,13 +29,17 @@ function App() {
           <Row style={{ padding: "10px 5px" }}>
             <Col span={7}></Col>
             <Col span={10}>
-              <Pagination
-                defaultCurrent={page}
-                total={data ? data.pagination.totalPage : 1}
-                onChange={(page) => {
-                  setPage(page);
-                }}
-              />
+              {post ? (
+                ""
+              ) : (
+                <Pagination
+                  defaultCurrent={page}
+                  total={data ? data.pagination.totalPage : 1}
+                  onChange={(page) => {
+                    setPage(page);
+                  }}
+                />
+              )}
             </Col>
             <Col span={7}></Col>
           </Row>
