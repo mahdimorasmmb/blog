@@ -16,22 +16,16 @@ export default function DataContextProvider({ children }) {
   const [data, dispatch] = useReducer(dataReducer, "");
 
   const { page } = useContext(PageContext);
-  const [post, setPost] = useState("");
 
-  const handelPost = (id) => {
-    return data.posts.map((item) => {
-      if (item.id === id) {
-        setPost(
-          <Post title={item.title} cover={item.cover} content={item.content} />
-        );
-      }
-    });
-  };
-  const home = () => {
-    if (post) {
-      setPost("");
-    }
-  };
+  // const handelPost = (id) => {
+  //   return data.posts.map((item) => {
+  //     if (item.id === id) {
+
+  //         <Post title={item.title} cover={item.cover} content={item.content} />
+
+  //     }
+  //   });
+  // };
 
   useEffect(() => {
     (async () => {
@@ -44,9 +38,7 @@ export default function DataContextProvider({ children }) {
     })();
   }, [page]);
   return (
-    <DataContext.Provider value={{ home, post, data, handelPost }}>
-      {children}
-    </DataContext.Provider>
+    <DataContext.Provider value={{ data }}>{children}</DataContext.Provider>
   );
 }
 

@@ -6,12 +6,13 @@ import BlogList from "./components/BlogList";
 import { PageContext } from "./context/PageContextProvider";
 import { DataContext } from "./context/DataContextProvider";
 import MyHeader from "./components/MyHeader";
+import { Route, Switch } from "react-router-dom";
+import Home from "./page/Home";
+import Blog from "./components/Blog";
+import Post from "./components/Post";
 
 const { Header, Content, Footer } = Layout;
 function App() {
-  const { page, setPage } = useContext(PageContext);
-  const { data, post } = useContext(DataContext);
-
   return (
     <Layout>
       <MyHeader></MyHeader>
@@ -19,31 +20,14 @@ function App() {
         className="site-layout"
         style={{ padding: "0 50px", marginTop: 64 }}
       >
-        <div
-          className="site-layout-background"
-          style={{ padding: 24, minHeight: 380 }}
-        >
-          <Row>
-            <Col> {post ? post : <BlogList />}</Col>
-          </Row>
-          <Row style={{ padding: "10px 5px" }}>
-            <Col span={7}></Col>
-            <Col span={10}>
-              {post ? (
-                ""
-              ) : (
-                <Pagination
-                  defaultCurrent={page}
-                  total={data ? data.pagination.totalPage : 1}
-                  onChange={(page) => {
-                    setPage(page);
-                  }}
-                />
-              )}
-            </Col>
-            <Col span={7}></Col>
-          </Row>
-        </div>
+        <Switch>
+          <Route path="/" exact>
+            <Home />
+          </Route>
+          <Route path="/blog/:id">
+            <Post />
+          </Route>
+        </Switch>
       </Content>
       <Footer style={{ textAlign: "center" }}>
         Ant Design ©2018 Created by Ant UED

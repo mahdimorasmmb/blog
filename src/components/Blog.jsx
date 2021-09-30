@@ -1,6 +1,7 @@
 import { Button, Card, Col, Row } from "antd";
 import Meta from "antd/lib/card/Meta";
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { DataContext } from "../context/DataContextProvider";
 
 export default function Blog({ id, cover, description, title }) {
@@ -22,14 +23,7 @@ export default function Blog({ id, cover, description, title }) {
           <Meta title={title} description={description} />
         </Col>
         <Col>
-          <Button
-            onClick={() => {
-              handelPost(id);
-            }}
-            type="primary"
-          >
-            ادامه مطلب
-          </Button>
+          <Link to={`/blog/${id}`}>ادامه مطلب</Link>
         </Col>
       </Row>
     </Card>
